@@ -57,13 +57,16 @@ public class LoyaltyCardReader implements NfcAdapter.ReaderCallback {
             try {
                 // Connect to the remote NFC device
                 isoDep.connect();
+
                 // Build SELECT AID command for our loyalty card service.
                 // This command tells the remote device which service we wish to communicate with.
                 Log.i(TAG, "Requesting remote AID: " + SAMPLE_LOYALTY_CARD_AID);
                 byte[] command = BuildSelectApdu(SAMPLE_LOYALTY_CARD_AID);
+
                 // Send command to remote device
                 Log.i(TAG, "Sending: " + ByteArrayToHexString(command));
                 byte[] result = isoDep.transceive(command);
+
                 // If AID is successfully selected, 0x9000 is returned as the status word (last 2
                 // bytes of the result) by convention. Everything before the status word is
                 // optional payload, which is used here to hold the account number.
@@ -77,6 +80,7 @@ public class LoyaltyCardReader implements NfcAdapter.ReaderCallback {
                     // Inform CardReaderFragment of received account number
                     mAccountCallback.get().onAccountReceived(accountNumber);
                 }
+
             } catch (IOException e) {
                 Log.e(TAG, "Error communicating with card: " + e.toString());
             }
