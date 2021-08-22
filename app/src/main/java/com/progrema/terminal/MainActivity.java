@@ -2,7 +2,6 @@ package com.progrema.terminal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements LoyaltyCardReader
             @Override
             public void run() {
                 // mAccountField.setText(account);
+                Log.i(TAG, "Account received");
             }
         });
     }
